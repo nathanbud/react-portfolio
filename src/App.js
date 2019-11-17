@@ -10,8 +10,8 @@ class App extends Component() {
         title:'nathan',
         headerLinks: [
           {title: 'home', path: '/'},
-          {title: 'home', path: '/'},
-          {title: 'home', path: '/'}
+          {title: 'About', path: '/'},
+          {title: 'Contact', path: '/'}
         ]
 
       }
