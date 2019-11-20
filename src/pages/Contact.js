@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 
 import Hero from '../components/Hero';
 import Content from '../components/Content';
+import Axios from 'axios';
 
 class Contact extends Component{
     constructor(props){
@@ -37,7 +38,28 @@ class Contact extends Component{
             disabled: true,
             emailSent:true
         });
+        Axios.post('http://localhost:3030/api/email', this.state)
+        .then(res =>{
+           if(res.data.success){
+            this.setState({
+                disabled: true,
+                emailSent:true
+            });
+           }else{
+            this.setState({
+                disabled: true,
+                emailSent:false 
+            });
+          }
+        })
+        .catch(err =>{
+            this.setState({
+                disabled: false,
+                emailSent: false
+            })
+        })
     }
+
     render(){
         return(
             <Row>
@@ -58,7 +80,7 @@ class Contact extends Component{
 
                         <Form.Group>
                             <Form.Label htmlFor='full-name'>Message</Form.Label>
-                            <Form.Control id='message' name = 'message' as='textarea' rows = '3' value={this.state.name} onChange = {this.handleChange}/>
+                            <Form.Control id='message' name = 'message' as='textarea' rows = '3' value={this.state.message} onChange = {this.handleChange}/>
                         </Form.Group>
 
                         <Button className='d-inline-block' variant='primary' type='submit'disabled={this.state.disabled} >
